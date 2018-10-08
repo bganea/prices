@@ -84,7 +84,7 @@
 		},
 		name: "Prices",
 		created(){
-			this.getPrices()
+			// this.getPrices()
 		},
 		methods:{
 			getPrices(){
