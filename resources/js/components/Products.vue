@@ -8,7 +8,7 @@
             <div v-if="showLoader" class="lds-facebook"><div></div><div></div><div></div></div>
         </div>
         <div class="products">
-            <div v-if="showLoader" class="lds-facebook"><div></div><div></div><div></div></div>
+            <div v-if="showListLoader" class="lds-facebook"><div></div><div></div><div></div></div>
             <table border="0">
                 <tr v-for="product in products">
                     <td class="product-name">
@@ -28,6 +28,7 @@
             return{
 				showAddProduct:false,
 				showLoader:false,
+				showListLoader:false,
                 product:'',
                 products:[],
             }
@@ -36,6 +37,7 @@
 		props:["baseUrl"],
 		created(){
 			console.log('aaaaaaaaaaaaaaaa',this.baseUrl);
+			console.log(this.$route.params);
 			this.getProducts()
 		},
         methods:{
@@ -45,7 +47,7 @@
             },
             onAdd(){
 				this.showLoader=true;
-				axios.post("http://prices.test/api/products/save",
+				axios.post("/api/products/save",
 					{product: this.product})
 					.then(response => {
 						this.products=response.data;
@@ -61,33 +63,31 @@
 				this.showAddProduct=false;
             },
             getProducts(){
-				this.showLoader=true;
-				axios.post("http://prices.test/api/products/list",
+				this.showListLoader=true;
+				axios.post("/api/products/list",
 					{product: this.product})
 					.then(response => {
 						this.products=response.data;
-						console.log(response.data);
-						this.showLoader = false;
+						this.showListLoader = false;
 					})
 					.catch(error => {
 						console.log(error.response)
-						this.showLoader = false;
+						this.showListLoader = false;
 					});
             },
 			onClickProductDelete(id=0){
 				console.log(id);
 				if (id>0){
-					this.showLoader=true;
-					axios.post("http://prices.test/api/products/delete/"+id,
+					this.showListLoader=true;
+					axios.post("/api/products/delete/"+id,
 						{product: this.product})
 						.then(response => {
 							this.products=response.data;
-							console.log(response.data);
-							this.showLoader = false;
+							this.showListLoader = false;
 						})
 						.catch(error => {
 							console.log(error.response)
-							this.showLoader = false;
+							this.showListLoader = false;
 						});
                 }
             }

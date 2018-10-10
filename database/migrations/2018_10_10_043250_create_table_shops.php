@@ -15,6 +15,7 @@ class CreateTableShops extends Migration
 		Schema::create('shops', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
+			$table->string('url');
 			$table->string('regex');
 			$table->timestamps();
 		});

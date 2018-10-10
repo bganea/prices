@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <router-view name="head"></router-view>
+        <router-view name="header"></router-view>
         <router-view name="nav"></router-view>
         <router-view :base-url="baseUrl" name="content"></router-view>
     </div>
