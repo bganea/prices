@@ -32,6 +32,7 @@ Vue.use(VueRouter);
 import App from "./components/App"
 import Prices from "./components/Prices"
 import Products from "./components/Products"
+import Head from "./components/Head"
 
 const router = new VueRouter({
 	mode:'history',
@@ -39,7 +40,10 @@ const router = new VueRouter({
 		{
 			path:'/',
 			name:'products',
-			component:Products,
+			components:{
+				head:Head,
+				default:Products
+			},
 			props:true
 		},
 		{
