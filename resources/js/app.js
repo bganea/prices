@@ -39,10 +39,11 @@ const router = new VueRouter({
 		{
 			path:'/',
 			name:'products',
-			component:Products
+			component:Products,
+			props:true
 		},
 		{
-			path:'/prices/*',
+			path:'/prices/:id',
 			name:'prices',
 			component:Prices
 		},

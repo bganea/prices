@@ -1,16 +1,19 @@
 <template>
     <div class="app">
-        <h1>Product prices scanner</h1>
-
-        <div class="container">
-            <router-view></router-view>
-        </div>
+        <router-view name="header"></router-view>
+        <router-view name="nav"></router-view>
+        <router-view :base-url="baseUrl" name="content"></router-view>
     </div>
 </template>
 
 <script>
 	export default {
-		name: "app"
+		name: "app",
+        props:["baseUrl"],
+        created(){
+			console.log("app",this.baseUrl);
+			console.log(this.$route);
+        }
 	}
 </script>
 

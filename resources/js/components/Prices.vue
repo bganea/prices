@@ -85,6 +85,7 @@
 		name: "Prices",
 		created(){
 			// this.getPrices()
+
 		},
 		methods:{
 			getPrices(){

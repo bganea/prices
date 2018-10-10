@@ -14,7 +14,7 @@
     </head>
     <body>
         <div id="app">
-            <app></app>
+            <app base-url="{{url("/")}}"></app>
         </div>
     <script src="{{ asset('js/app.js') }}"></script>
     </body>

@@ -32,10 +32,12 @@
                 products:[],
             }
 		},
-        created(){
-		    this.getProducts()
-        },
 		name: "products",
+		props:["baseUrl"],
+		created(){
+			console.log('aaaaaaaaaaaaaaaa',this.baseUrl);
+			this.getProducts()
+		},
         methods:{
 			onAddProduct(){
 				this.showAddProduct=true;
