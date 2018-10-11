@@ -3,6 +3,7 @@
         <router-view name="header"></router-view>
         <router-view name="nav"></router-view>
         <router-view :base-url="baseUrl" name="content"></router-view>
+        <router-view :base-url="baseUrl"></router-view>
     </div>
 </template>
 

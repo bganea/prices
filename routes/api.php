@@ -19,8 +19,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('/products')->group(function (){
 	Route::namespace('API')->group(function () {
-		Route::post('/save','PricesController@saveProduct');
-		Route::post('/list','PricesController@listProducts');
-		Route::post('/delete/{id?}','PricesController@deleteProduct');
+		Route::post('/save','ProductsController@saveProduct');
+		Route::post('/list','ProductsController@listProducts');
+		Route::post('/delete/{id?}','ProductsController@deleteProduct');
+	});
+});
+
+Route::prefix('/shops')->group(function (){
+	Route::namespace('API')->group(function () {
+		Route::post('/save','ShopsController@saveShop');
+		Route::post('/list','ShopsController@listShops');
+		Route::post('/delete/{id?}','ShopsController@deleteShop');
 	});
 });
