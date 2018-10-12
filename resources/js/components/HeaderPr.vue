@@ -2,6 +2,7 @@
     <div class="head">
         <h1>Product prices scanner</h1>
         <router-link class="link" to="/prices/1">Prices</router-link>
+        <router-link class="link" to="/shops">Shops</router-link>
     </div>
 </template>
 

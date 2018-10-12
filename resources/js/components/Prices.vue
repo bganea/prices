@@ -26,7 +26,7 @@
 			return{
 				pageData:'',
 				urlCollection:[
-					{
+					/*{
 						url:'https://www.emag.ro/masina-de-cusut-computerizata-brother-innov-is-55fe-feshion-edition-152-cusaturi-ecran-lcd-10-modele-butoniera-1-pas-iluminare-led-pedala-de-picior-850-imp-min-alb-nv55fevl1/pd/D29BV7BBM/',
 						regex:/EM\.productDiscountedPrice = ([\d]+);/g,
 						website:'Emag'
@@ -37,7 +37,7 @@
 						website:'PC Garage'
 					},
 					{
-						url:'https://www.vexio.ro/masini-de-cusut/brother/181239-masina-de-cusut-casnica-computerizata-nv55fe/?ref=compari&utm_source=compari&utm_medium=pricegrabbers&utm_campaign=Masini+de+cusut&utm_content=Brother&utm_term=Masina+de+cusut+casnica+computerizata+NV55FE',
+						url:'https://www.vexio.ro/masini-de-cusut/brother/181239-masina-de-cusut-casnica-computerizata-nv55fe/',
 						regex:/itemprop="price"[\s]+content="([\d]+)/g,
 						website:'Vexio'
 					},
@@ -75,7 +75,7 @@
 						url:'http://www.domo.ro/masini-de-cusut/masina-de-cusut-brother-innov_is-55fe-135-tipuri-de-cusaturi-iluminare-led-alb-pMiU6Nj0n-l/',
 						regex:/value: '([\d]+)/g,
 						website:'DOMO'
-					}
+					}*/
 				],
 				showSorted:false,
 				websites:[],
@@ -84,10 +84,24 @@
 		},
 		name: "Prices",
 		created(){
-			console.log('asasasas');
-			this.getPrices()
+			// this.getPrices()
+			this.getShops()
 		},
 		methods:{
+			getShops(){
+				axios.post("/api/shops/list",
+					{})
+					.then(response => {
+						for (var i=0;i<response.data.length;i++){
+							let shop=response.data[i];
+							this.urlCollection.push({website:shop.name,regex:new RegExp(shop.regex,"g"),url:shop.url})
+						}
+						this.getPrices()
+					})
+					.catch(error => {
+						console.log(error.response)
+					});
+			},
 			getPrices(){
 				for(var i=0;i<this.urlCollection.length;i++){
 					this.getPage(i)

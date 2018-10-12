@@ -8,14 +8,13 @@ use App\Http\Controllers\Controller;
 
 class ShopsController extends Controller {
 	public function saveShop(Request $request){
-		if (!empty($request->shop)){
+		if (!empty($request->name)){
 			$shop=new Shop();
 			$shop->name=$request->name;
 			$shop->url=$request->url;
 			$shop->regex=$request->regex;
 			$shop->save();
-			return $this->listProducts($request);
-
+			return $this->listShops($request);
 		}
 		return response()->json(['message'=>'Shop not saved'],200);
 	}

@@ -31,6 +31,7 @@ Vue.use(VueRouter);
 
 import App from "./components/App"
 import Prices from "./components/Prices"
+import Shops from "./components/Shops"
 import Products from "./components/Products"
 import HeaderPr from "./components/HeaderPr"
 
@@ -43,6 +44,15 @@ const router = new VueRouter({
 			components:{
 				header:HeaderPr,
 				content:Products
+			},
+			props:true
+		},
+		{
+			path:'/shops',
+			name:'shops',
+			components:{
+				header:HeaderPr,
+				content:Shops
 			},
 			props:true
 		},

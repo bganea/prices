@@ -36,8 +36,8 @@
 		name: "products",
 		props:["baseUrl"],
 		created(){
-			console.log('aaaaaaaaaaaaaaaa',this.baseUrl);
-			console.log(this.$route.params);
+			// console.log('aaaaaaaaaaaaaaaa',this.baseUrl);
+			// console.log(this.$route.params);
 			this.getProducts()
 		},
         methods:{
@@ -76,7 +76,6 @@
 					});
             },
 			onClickProductDelete(id=0){
-				console.log(id);
 				if (id>0){
 					this.showListLoader=true;
 					axios.post("/api/products/delete/"+id,
@@ -142,7 +141,7 @@
     }
     .lds-facebook div:nth-child(3) {
         left: 45px;
-        animation-delay: 0;
+        animation-delay: 0s;
     }
     @keyframes lds-facebook {
         0% {

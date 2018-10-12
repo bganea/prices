@@ -12,8 +12,8 @@
 		name: "app",
         props:["baseUrl"],
         created(){
-			console.log("app",this.baseUrl);
-			console.log(this.$route);
+			// console.log("app",this.baseUrl);
+			// console.log(this.$route);
         }
 	}
 </script>
