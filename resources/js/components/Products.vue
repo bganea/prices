@@ -2,8 +2,12 @@
     <div>
         <div v-if="!showAddProduct"><button @click="onAddProduct">Add Product</button></div>
         <div v-if="showAddProduct" class="product">
-            <input v-model="product" placeholder="Product name"/>
-            <button v-if="!showLoader" @click="onAdd">Add</button>
+            <input type="text" v-model="product" @keyup.enter="onAdd" placeholder="Product name" ref="product"/>
+            <input type="hidden" v-model="productId" value="0"/>
+            <button v-if="!showLoader" @click="onAdd">
+                <span v-if="productId==0">Add</span>
+                <span v-if="productId>0">Save</span>
+            </button>
             <button v-if="!showLoader" @click="onCancel">Cancel</button>
             <div v-if="showLoader" class="lds-facebook"><div></div><div></div><div></div></div>
         </div>
@@ -14,7 +18,7 @@
                     <td class="product-name">
                         <router-link :to="{ path: 'prices'+'/'+product.id,params:{id:product.id,name:product.name} }">{{product.name}}</router-link>
                     </td>
-                    <td><button>Edit</button></td>
+                    <td><button @click="onEdit(product.id)">Edit</button></td>
                     <td><button @click="onClickProductDelete(product.id)">Delete</button></td>
                 </tr>
             </table>
@@ -29,7 +33,9 @@
 				showAddProduct:false,
 				showLoader:false,
 				showListLoader:false,
+                showProducts:true,
                 product:'',
+                productId:0,
                 products:[],
             }
 		},
@@ -44,10 +50,15 @@
 			onAddProduct(){
 				this.showAddProduct=true;
 				this.product='';
+				this.productId=0;
             },
             onAdd(){
 				this.showLoader=true;
-				axios.post("/api/products/save",
+				var url="/api/product/save";
+				if (this.productId>0){
+					url=`/api/product/save/${this.productId}`;
+                }
+				axios.post(url,
 					{product: this.product})
 					.then(response => {
 						this.products=response.data;
@@ -59,13 +70,32 @@
 						console.log(error.response)
 					});
             },
+            onEdit(id=0){
+				if(id>0){
+					this.showListLoader=true;
+					axios.post(`/api/product/get/${id}`,
+						{})
+						.then(response => {
+							this.showListLoader = false;
+							if (response.data.name) {
+								this.product = response.data.name;
+								this.productId = response.data.id;
+								this.showAddProduct = true;
+							}
+						})
+						.catch(error => {
+							console.log(error.response);
+							this.showListLoader = false;
+						});
+                }
+            },
             onCancel(){
 				this.showAddProduct=false;
             },
             getProducts(){
 				this.showListLoader=true;
 				axios.post("/api/products/list",
-					{product: this.product})
+					{})
 					.then(response => {
 						this.products=response.data;
 						this.showListLoader = false;
@@ -79,7 +109,7 @@
 				if (id>0){
 					this.showListLoader=true;
 					axios.post("/api/products/delete/"+id,
-						{product: this.product})
+						{})
 						.then(response => {
 							this.products=response.data;
 							this.showListLoader = false;

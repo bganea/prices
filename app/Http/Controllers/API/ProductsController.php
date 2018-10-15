@@ -7,9 +7,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ProductsController extends Controller {
-	public function saveProduct(Request $request){
+	public function getProduct($id){
+		if ($id>0){
+			$product=Product::find($id);
+			return $product;
+		}
+	}
+	public function saveProduct(Request $request,$id=null){
 		if (!empty($request->product)){
-			$product=new Product();
+			if (!$id) {
+				$product = new Product();
+			}else{
+				$product=Product::find($id);
+			}
 			$product->name=$request->product;
 			$product->save();
 			return $this->listProducts($request);
